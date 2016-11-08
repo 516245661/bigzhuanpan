@@ -348,6 +348,7 @@ textarea::-moz-placeholder {
     width: 135px;
     left: -10px;
     font-size: 12px;
+    padding: 0 5px;
 }
 .gitgift{
 	background: url(../images/jiangxiang_03.png);
