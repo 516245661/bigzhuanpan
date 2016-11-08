@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<title>H5幸运大转盘抽奖</title>
+		<link href="css/activity-style.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body class="activity-lottery-winning">
+		<div class="main">
+			<div id="outercont">
+				<div class="zhezhaoAll">
+				</div>
+				<div class="gitgift">
+					<p class="showthis">恭喜你中了<span>4等奖</span></p>
+					<p class="showgift">50元话费充值卡</p>
+					<img class="back" src="images/back.png"/>
+					<img class="shar" src="images/fenxiang.png"/>
+				</div>
+				<div id="outer-cont">
+					<div id="outer">
+						<img style="width:310" src="images/zhuanpan.png"/>
+					</div>
+				</div>
+				<div id="inner-cont">
+					<div id="inner" style="position: relative;">
+						<img src="images/zhizhen.png">
+						<input type="tel" class="tel" maxlength="11" value="" placeholder="100%中奖，快来玩吧！" />
+						<img class="dianji" src="images/kaishichoujiang_03.jpg"/>
+					</div>
+				</div>
+			</div>
+			<div class="content">
+				<div class="">
+					<p style="text-align: center;font-size: 16px;color: #6908a3;">你今天还有<span>&nbsp;&nbsp;1&nbsp;&nbsp;</span>次抽奖机会</p>
+					<p class="showguizhe" style="text-align: center;"><span style="border-bottom: 1px solid #efe9e9;color: #efe9e9;font-size: 14px;">活动规则</span></p>
+				</div>
+			</div>
+			<div class="zhezhao">
+				
+			</div>
+			<div class="guizhe">
+				<p>1.活动时间：11月8日-11月15日(每个手机号限领一次奖品)</p>
+				<p>2.参与方式：活动期间内关注“轻语洁牙仪“官方微信</p>
+				<p>3.每个手机号每天可参加一次抽奖，分享后可增加一次抽奖机会</p>
+				<p>4.优惠券用于下次消费时抵扣，不可叠加使用</p>
+				<p>5.流量统一充值时间微11月15日-11月20日之间（仅限11月有效）</p>
+			</div>
+		</div>
+		<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+		<script src="js/jQueryRotate.2.2.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var dataObj = [0, 36, 72, 108, 144, 180, 216, 252, 288, 324];
+			$(function() {
+				var rotating = false;
+				var rotateFunc = function(num, type) {
+					rotating = true;
+					$("#outer").rotate({
+						angle: 0, //旋转一个角度
+						duration: 2000, // 旋转持续时间，以毫秒为单位
+						animateTo: num + 1440, //1440是我要让指针旋转4圈
+						callback: function() { //旋转完成后的回调函数
+							rotating = false;
+							$('.gitgift').css('display','block')
+							if (type == 0) {
+								console.log("恭喜你获得一等奖");
+							} else if (type == 4) {
+								console.log("恭喜你获得二等奖");
+							} else if (type == 8) {
+								console.log("恭喜你获得三等奖");
+							} else {
+								console.log("再接再厉");
+							}
+						}
+					});
+				};
+				$(".dianji").on("click", function() {
+					$('.zhezhaoAll').css('display','block')
+					/***
+					 * ajax操作返回数据*
+					 * **/
+					var key = getRandom(0, 12);
+					!rotating && rotateFunc(dataObj[key], key);
+				});
+			});
+			function getRandom(min, max) {
+				//x上限，y下限   
+				var x = max;
+				var y = min;
+				if (x < y) {
+					x = min;
+					y = max;
+				}
+				var rand = parseInt(Math.random() * (x - y + 1) + y);
+				return rand;
+			}
+			$('.back').click(function(){
+				$('.zhezhaoAll').css('display','none')
+				$('.gitgift').css('display','none')
+			})
+			$('.zhezhao').click(function(){
+				$('.zhezhao').css('display','none')
+				$('.guizhe').css('display','none')
+			})
+			$('.guizhe').click(function(){
+				$('.zhezhao').css('display','none')
+				$('.guizhe').css('display','none')
+			})
+			$('.showguizhe').click(function(){
+				$('.zhezhao').css('display','block')
+				$('.guizhe').css('display','block')
+			})
+		</script>
+	</body>
+</html>
